@@ -1,0 +1,1146 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.2.4
+-- Dumped by pg_dump version 9.2.4
+-- Started on 2013-09-02 06:02:30
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 194 (class 3079 OID 11727)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2055 (class 0 OID 0)
+-- Dependencies: 194
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 170 (class 1259 OID 16423)
+-- Name: ge_buses; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ge_buses (
+    id_bus integer NOT NULL,
+    no_bus numeric,
+    estado character(1),
+    capacidad numeric
+);
+
+
+ALTER TABLE public.ge_buses OWNER TO postgres;
+
+--
+-- TOC entry 169 (class 1259 OID 16421)
+-- Name: Ge_Buses_id_Bus_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Buses_id_Bus_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Buses_id_Bus_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2056 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: Ge_Buses_id_Bus_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Buses_id_Bus_seq" OWNED BY ge_buses.id_bus;
+
+
+--
+-- TOC entry 189 (class 1259 OID 16572)
+-- Name: Ge_Calles; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "Ge_Calles" (
+    nombre character(100),
+    "id_Calle" integer NOT NULL,
+    estado character(1)
+);
+
+
+ALTER TABLE public."Ge_Calles" OWNER TO postgres;
+
+--
+-- TOC entry 193 (class 1259 OID 16584)
+-- Name: Ge_Calles_Ruta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "Ge_Calles_Ruta" (
+    "id_Calles_Ruta" integer NOT NULL,
+    "ge_Calles_id_Calle" integer NOT NULL,
+    "ge_Recorrido_id_Recorrido" integer NOT NULL
+);
+
+
+ALTER TABLE public."Ge_Calles_Ruta" OWNER TO postgres;
+
+--
+-- TOC entry 191 (class 1259 OID 16580)
+-- Name: Ge_Calles_Ruta_ge_Calles_id_Calle_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Calles_Ruta_ge_Calles_id_Calle_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Calles_Ruta_ge_Calles_id_Calle_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2057 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: Ge_Calles_Ruta_ge_Calles_id_Calle_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Calles_Ruta_ge_Calles_id_Calle_seq" OWNED BY "Ge_Calles_Ruta"."ge_Calles_id_Calle";
+
+
+--
+-- TOC entry 192 (class 1259 OID 16582)
+-- Name: Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2058 (class 0 OID 0)
+-- Dependencies: 192
+-- Name: Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq" OWNED BY "Ge_Calles_Ruta"."ge_Recorrido_id_Recorrido";
+
+
+--
+-- TOC entry 190 (class 1259 OID 16578)
+-- Name: Ge_Calles_Ruta_id_Calles_Ruta_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Calles_Ruta_id_Calles_Ruta_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Calles_Ruta_id_Calles_Ruta_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2059 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: Ge_Calles_Ruta_id_Calles_Ruta_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Calles_Ruta_id_Calles_Ruta_seq" OWNED BY "Ge_Calles_Ruta"."id_Calles_Ruta";
+
+
+--
+-- TOC entry 188 (class 1259 OID 16570)
+-- Name: Ge_Calles_id_Calle_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Calles_id_Calle_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Calles_id_Calle_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2060 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: Ge_Calles_id_Calle_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Calles_id_Calle_seq" OWNED BY "Ge_Calles"."id_Calle";
+
+
+--
+-- TOC entry 172 (class 1259 OID 16434)
+-- Name: ge_horarios; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ge_horarios (
+    "id_Horario" integer NOT NULL,
+    "hora_Salida" time without time zone,
+    "estado_Horario" character(1),
+    "tipo_Horario" character(1)
+);
+
+
+ALTER TABLE public.ge_horarios OWNER TO postgres;
+
+--
+-- TOC entry 171 (class 1259 OID 16432)
+-- Name: Ge_Horarios_id_Horario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Horarios_id_Horario_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Horarios_id_Horario_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2061 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: Ge_Horarios_id_Horario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Horarios_id_Horario_seq" OWNED BY ge_horarios."id_Horario";
+
+
+--
+-- TOC entry 181 (class 1259 OID 16476)
+-- Name: ge_paraderos_recorridos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ge_paraderos_recorridos (
+    id_paradero_recorrido integer NOT NULL,
+    estado character(1),
+    ge_recorridos_id_recorrido integer NOT NULL,
+    ge_paraderos_id_paradero integer NOT NULL
+);
+
+
+ALTER TABLE public.ge_paraderos_recorridos OWNER TO postgres;
+
+--
+-- TOC entry 180 (class 1259 OID 16474)
+-- Name: Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2062 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq" OWNED BY ge_paraderos_recorridos.ge_paraderos_id_paradero;
+
+
+--
+-- TOC entry 179 (class 1259 OID 16472)
+-- Name: Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2063 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq" OWNED BY ge_paraderos_recorridos.ge_recorridos_id_recorrido;
+
+
+--
+-- TOC entry 178 (class 1259 OID 16470)
+-- Name: Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2064 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq" OWNED BY ge_paraderos_recorridos.id_paradero_recorrido;
+
+
+--
+-- TOC entry 177 (class 1259 OID 16455)
+-- Name: ge_paraderos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ge_paraderos (
+    id_paradero integer NOT NULL,
+    nombre_paradero character(100),
+    direccion character(1000),
+    referencias character(1000),
+    estado character(1),
+    ge_zonas_id_zona integer
+);
+
+
+ALTER TABLE public.ge_paraderos OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 16453)
+-- Name: Ge_Paraderos_ge_Zonas_id_Zona_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Paraderos_ge_Zonas_id_Zona_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Paraderos_ge_Zonas_id_Zona_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2065 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: Ge_Paraderos_ge_Zonas_id_Zona_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Paraderos_ge_Zonas_id_Zona_seq" OWNED BY ge_paraderos.ge_zonas_id_zona;
+
+
+--
+-- TOC entry 175 (class 1259 OID 16451)
+-- Name: Ge_Paraderos_id_Paradero_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Paraderos_id_Paradero_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Paraderos_id_Paradero_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2066 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: Ge_Paraderos_id_Paradero_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Paraderos_id_Paradero_seq" OWNED BY ge_paraderos.id_paradero;
+
+
+--
+-- TOC entry 186 (class 1259 OID 16502)
+-- Name: ge_recorridos_horarios; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ge_recorridos_horarios (
+    id_recorrido_horario integer NOT NULL,
+    tipo_recorrido character(1),
+    categoria_recorrido character(1),
+    ge_recorridos_id_recorrido integer NOT NULL,
+    ge_horarios_id_horario integer NOT NULL,
+    ge_buses_id_bus integer
+);
+
+
+ALTER TABLE public.ge_recorridos_horarios OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 16500)
+-- Name: Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2067 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq" OWNED BY ge_recorridos_horarios.ge_buses_id_bus;
+
+
+--
+-- TOC entry 184 (class 1259 OID 16498)
+-- Name: Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2068 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq" OWNED BY ge_recorridos_horarios.ge_horarios_id_horario;
+
+
+--
+-- TOC entry 183 (class 1259 OID 16496)
+-- Name: Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2069 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq" OWNED BY ge_recorridos_horarios.ge_recorridos_id_recorrido;
+
+
+--
+-- TOC entry 182 (class 1259 OID 16494)
+-- Name: Ge_Recorridos_Horarios_id_Recorrido_Horario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Recorridos_Horarios_id_Recorrido_Horario_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Recorridos_Horarios_id_Recorrido_Horario_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2070 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: Ge_Recorridos_Horarios_id_Recorrido_Horario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Recorridos_Horarios_id_Recorrido_Horario_seq" OWNED BY ge_recorridos_horarios.id_recorrido_horario;
+
+
+--
+-- TOC entry 168 (class 1259 OID 16395)
+-- Name: ge_recorridos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ge_recorridos (
+    nombre_recorrido character(100),
+    estado_recorrido character(1),
+    id_ge_recorrido integer NOT NULL
+);
+
+
+ALTER TABLE public.ge_recorridos OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 16537)
+-- Name: Ge_Recorridos_id_Ge_Recorrido_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Recorridos_id_Ge_Recorrido_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Recorridos_id_Ge_Recorrido_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2072 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: Ge_Recorridos_id_Ge_Recorrido_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Recorridos_id_Ge_Recorrido_seq" OWNED BY ge_recorridos.id_ge_recorrido;
+
+
+--
+-- TOC entry 174 (class 1259 OID 16442)
+-- Name: ge_zonas; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ge_zonas (
+    "id_Zona" integer NOT NULL,
+    "nombre_Zona" character(100),
+    "descripcion_Zona" character(1000)
+);
+
+
+ALTER TABLE public.ge_zonas OWNER TO postgres;
+
+--
+-- TOC entry 173 (class 1259 OID 16440)
+-- Name: Ge_Zonas_id_Zona_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "Ge_Zonas_id_Zona_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."Ge_Zonas_id_Zona_seq" OWNER TO postgres;
+
+--
+-- TOC entry 2073 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: Ge_Zonas_id_Zona_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "Ge_Zonas_id_Zona_seq" OWNED BY ge_zonas."id_Zona";
+
+
+--
+-- TOC entry 1996 (class 2604 OID 16575)
+-- Name: id_Calle; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Ge_Calles" ALTER COLUMN "id_Calle" SET DEFAULT nextval('"Ge_Calles_id_Calle_seq"'::regclass);
+
+
+--
+-- TOC entry 1997 (class 2604 OID 16587)
+-- Name: id_Calles_Ruta; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Ge_Calles_Ruta" ALTER COLUMN "id_Calles_Ruta" SET DEFAULT nextval('"Ge_Calles_Ruta_id_Calles_Ruta_seq"'::regclass);
+
+
+--
+-- TOC entry 1998 (class 2604 OID 16588)
+-- Name: ge_Calles_id_Calle; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Ge_Calles_Ruta" ALTER COLUMN "ge_Calles_id_Calle" SET DEFAULT nextval('"Ge_Calles_Ruta_ge_Calles_id_Calle_seq"'::regclass);
+
+
+--
+-- TOC entry 1999 (class 2604 OID 16589)
+-- Name: ge_Recorrido_id_Recorrido; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Ge_Calles_Ruta" ALTER COLUMN "ge_Recorrido_id_Recorrido" SET DEFAULT nextval('"Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq"'::regclass);
+
+
+--
+-- TOC entry 1984 (class 2604 OID 16426)
+-- Name: id_bus; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_buses ALTER COLUMN id_bus SET DEFAULT nextval('"Ge_Buses_id_Bus_seq"'::regclass);
+
+
+--
+-- TOC entry 1985 (class 2604 OID 16437)
+-- Name: id_Horario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_horarios ALTER COLUMN "id_Horario" SET DEFAULT nextval('"Ge_Horarios_id_Horario_seq"'::regclass);
+
+
+--
+-- TOC entry 1987 (class 2604 OID 16458)
+-- Name: id_paradero; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos ALTER COLUMN id_paradero SET DEFAULT nextval('"Ge_Paraderos_id_Paradero_seq"'::regclass);
+
+
+--
+-- TOC entry 1988 (class 2604 OID 16459)
+-- Name: ge_zonas_id_zona; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos ALTER COLUMN ge_zonas_id_zona SET DEFAULT nextval('"Ge_Paraderos_ge_Zonas_id_Zona_seq"'::regclass);
+
+
+--
+-- TOC entry 1989 (class 2604 OID 16479)
+-- Name: id_paradero_recorrido; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos_recorridos ALTER COLUMN id_paradero_recorrido SET DEFAULT nextval('"Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq"'::regclass);
+
+
+--
+-- TOC entry 1990 (class 2604 OID 16480)
+-- Name: ge_recorridos_id_recorrido; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos_recorridos ALTER COLUMN ge_recorridos_id_recorrido SET DEFAULT nextval('"Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq"'::regclass);
+
+
+--
+-- TOC entry 1991 (class 2604 OID 16481)
+-- Name: ge_paraderos_id_paradero; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos_recorridos ALTER COLUMN ge_paraderos_id_paradero SET DEFAULT nextval('"Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq"'::regclass);
+
+
+--
+-- TOC entry 1983 (class 2604 OID 16539)
+-- Name: id_ge_recorrido; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos ALTER COLUMN id_ge_recorrido SET DEFAULT nextval('"Ge_Recorridos_id_Ge_Recorrido_seq"'::regclass);
+
+
+--
+-- TOC entry 1992 (class 2604 OID 16505)
+-- Name: id_recorrido_horario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios ALTER COLUMN id_recorrido_horario SET DEFAULT nextval('"Ge_Recorridos_Horarios_id_Recorrido_Horario_seq"'::regclass);
+
+
+--
+-- TOC entry 1993 (class 2604 OID 16506)
+-- Name: ge_recorridos_id_recorrido; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios ALTER COLUMN ge_recorridos_id_recorrido SET DEFAULT nextval('"Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq"'::regclass);
+
+
+--
+-- TOC entry 1994 (class 2604 OID 16507)
+-- Name: ge_horarios_id_horario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios ALTER COLUMN ge_horarios_id_horario SET DEFAULT nextval('"Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq"'::regclass);
+
+
+--
+-- TOC entry 1995 (class 2604 OID 16508)
+-- Name: ge_buses_id_bus; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios ALTER COLUMN ge_buses_id_bus SET DEFAULT nextval('"Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq"'::regclass);
+
+
+--
+-- TOC entry 1986 (class 2604 OID 16445)
+-- Name: id_Zona; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_zonas ALTER COLUMN "id_Zona" SET DEFAULT nextval('"Ge_Zonas_id_Zona_seq"'::regclass);
+
+
+--
+-- TOC entry 2074 (class 0 OID 0)
+-- Dependencies: 169
+-- Name: Ge_Buses_id_Bus_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Buses_id_Bus_seq"', 1, false);
+
+
+--
+-- TOC entry 2043 (class 0 OID 16572)
+-- Dependencies: 189
+-- Data for Name: Ge_Calles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Ge_Calles" (nombre, "id_Calle", estado) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2047 (class 0 OID 16584)
+-- Dependencies: 193
+-- Data for Name: Ge_Calles_Ruta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Ge_Calles_Ruta" ("id_Calles_Ruta", "ge_Calles_id_Calle", "ge_Recorrido_id_Recorrido") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2075 (class 0 OID 0)
+-- Dependencies: 191
+-- Name: Ge_Calles_Ruta_ge_Calles_id_Calle_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Calles_Ruta_ge_Calles_id_Calle_seq"', 1, false);
+
+
+--
+-- TOC entry 2076 (class 0 OID 0)
+-- Dependencies: 192
+-- Name: Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Calles_Ruta_ge_Recorrido_id_Recorrido_seq"', 1, false);
+
+
+--
+-- TOC entry 2077 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: Ge_Calles_Ruta_id_Calles_Ruta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Calles_Ruta_id_Calles_Ruta_seq"', 1, false);
+
+
+--
+-- TOC entry 2078 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: Ge_Calles_id_Calle_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Calles_id_Calle_seq"', 1, false);
+
+
+--
+-- TOC entry 2079 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: Ge_Horarios_id_Horario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Horarios_id_Horario_seq"', 9, true);
+
+
+--
+-- TOC entry 2080 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Paraderos_Recorridos_ge_Paraderos_id_Paradero_seq"', 1, false);
+
+
+--
+-- TOC entry 2081 (class 0 OID 0)
+-- Dependencies: 179
+-- Name: Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Paraderos_Recorridos_ge_Recorridos_id_Recorrido_seq"', 1, false);
+
+
+--
+-- TOC entry 2082 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Paraderos_Recorridos_id_Paradero_Recorrido_seq"', 1, false);
+
+
+--
+-- TOC entry 2083 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: Ge_Paraderos_ge_Zonas_id_Zona_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Paraderos_ge_Zonas_id_Zona_seq"', 4, true);
+
+
+--
+-- TOC entry 2084 (class 0 OID 0)
+-- Dependencies: 175
+-- Name: Ge_Paraderos_id_Paradero_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Paraderos_id_Paradero_seq"', 4, true);
+
+
+--
+-- TOC entry 2085 (class 0 OID 0)
+-- Dependencies: 185
+-- Name: Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Recorridos_Horarios_ge_Buses_id_Bus_seq"', 20, true);
+
+
+--
+-- TOC entry 2086 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Recorridos_Horarios_ge_Horarios_id_Horario_seq"', 2, true);
+
+
+--
+-- TOC entry 2087 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Recorridos_Horarios_ge_Recorridos_id_Recorrido_seq"', 3, true);
+
+
+--
+-- TOC entry 2088 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: Ge_Recorridos_Horarios_id_Recorrido_Horario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Recorridos_Horarios_id_Recorrido_Horario_seq"', 20, true);
+
+
+--
+-- TOC entry 2089 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: Ge_Recorridos_id_Ge_Recorrido_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Recorridos_id_Ge_Recorrido_seq"', 10, true);
+
+
+--
+-- TOC entry 2090 (class 0 OID 0)
+-- Dependencies: 173
+-- Name: Ge_Zonas_id_Zona_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"Ge_Zonas_id_Zona_seq"', 1, true);
+
+
+--
+-- TOC entry 2024 (class 0 OID 16423)
+-- Dependencies: 170
+-- Data for Name: ge_buses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ge_buses (id_bus, no_bus, estado, capacidad) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2026 (class 0 OID 16434)
+-- Dependencies: 172
+-- Data for Name: ge_horarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ge_horarios ("id_Horario", "hora_Salida", "estado_Horario", "tipo_Horario") FROM stdin;
+1	16:45:00	A	\N
+2	06:20:00	A	\N
+3	06:30:00	A	\N
+4	06:45:00	A	\N
+5	06:40:00	A	\N
+6	06:50:00	A	\N
+7	20:30:00	A	\N
+8	07:00:00	A	\N
+9	18:30:00	A	\N
+\.
+
+
+--
+-- TOC entry 2031 (class 0 OID 16455)
+-- Dependencies: 177
+-- Data for Name: ge_paraderos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ge_paraderos (id_paradero, nombre_paradero, direccion, referencias, estado, ge_zonas_id_zona) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2035 (class 0 OID 16476)
+-- Dependencies: 181
+-- Data for Name: ge_paraderos_recorridos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ge_paraderos_recorridos (id_paradero_recorrido, estado, ge_recorridos_id_recorrido, ge_paraderos_id_paradero) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2022 (class 0 OID 16395)
+-- Dependencies: 168
+-- Data for Name: ge_recorridos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ge_recorridos (nombre_recorrido, estado_recorrido, id_ge_recorrido) FROM stdin;
+Ruta Piscina Olímpica                                                                               	A	2
+Ruta Orquídeas                                                                                      	A	3
+Ruta Acacias                                                                                        	A	4
+Ruta Norte1                                                                                         	A	6
+Ruta Terminal                                                                                       	A	5
+Ruta Norte2                                                                                         	A	7
+RUTA KM 4.5 AV. CARLOS JULIO AROSEMENA                                                              	A	8
+Ruta Duran                                                                                          	A	9
+Ruta Orquídeas                                                                                      	A	10
+\.
+
+
+--
+-- TOC entry 2040 (class 0 OID 16502)
+-- Dependencies: 186
+-- Data for Name: ge_recorridos_horarios; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ge_recorridos_horarios (id_recorrido_horario, tipo_recorrido, categoria_recorrido, ge_recorridos_id_recorrido, ge_horarios_id_horario, ge_buses_id_bus) FROM stdin;
+7	I	E	6	2	\N
+8	I	E	6	3	\N
+9	I	E	7	2	\N
+10	I	E	7	3	\N
+11	I	E	4	2	\N
+12	I	E	4	3	\N
+13	I	E	9	3	\N
+14	I	E	10	4	\N
+15	I	E	10	5	\N
+16	I	E	10	6	\N
+17	S	E	3	1	\N
+18	S	E	4	7	\N
+19	S	E	5	9	\N
+20	S	E	6	7	\N
+\.
+
+
+--
+-- TOC entry 2028 (class 0 OID 16442)
+-- Dependencies: 174
+-- Data for Name: ge_zonas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ge_zonas ("id_Zona", "nombre_Zona", "descripcion_Zona") FROM stdin;
+1	eee                                                                                                 	eeee                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+\.
+
+
+--
+-- TOC entry 2003 (class 2606 OID 16431)
+-- Name: Ge_Buses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ge_buses
+    ADD CONSTRAINT "Ge_Buses_pkey" PRIMARY KEY (id_bus);
+
+
+--
+-- TOC entry 2015 (class 2606 OID 16577)
+-- Name: Ge_Calles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "Ge_Calles"
+    ADD CONSTRAINT "Ge_Calles_pkey" PRIMARY KEY ("id_Calle");
+
+
+--
+-- TOC entry 2005 (class 2606 OID 16439)
+-- Name: Ge_Horarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ge_horarios
+    ADD CONSTRAINT "Ge_Horarios_pkey" PRIMARY KEY ("id_Horario");
+
+
+--
+-- TOC entry 2001 (class 2606 OID 16544)
+-- Name: Ge_Recorridos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ge_recorridos
+    ADD CONSTRAINT "Ge_Recorridos_pkey" PRIMARY KEY (id_ge_recorrido);
+
+
+--
+-- TOC entry 2007 (class 2606 OID 16450)
+-- Name: Ge_Zonas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ge_zonas
+    ADD CONSTRAINT "Ge_Zonas_pkey" PRIMARY KEY ("id_Zona");
+
+
+--
+-- TOC entry 2009 (class 2606 OID 16804)
+-- Name: ge_paraderos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ge_paraderos
+    ADD CONSTRAINT ge_paraderos_pkey PRIMARY KEY (id_paradero);
+
+
+--
+-- TOC entry 2011 (class 2606 OID 16815)
+-- Name: ge_paraderos_recorridos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ge_paraderos_recorridos
+    ADD CONSTRAINT ge_paraderos_recorridos_pkey PRIMARY KEY (id_paradero_recorrido);
+
+
+--
+-- TOC entry 2013 (class 2606 OID 16839)
+-- Name: ge_recorridos_horarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios
+    ADD CONSTRAINT ge_recorridos_horarios_pkey PRIMARY KEY (id_recorrido_horario);
+
+
+--
+-- TOC entry 2016 (class 2606 OID 16855)
+-- Name: ge_paraderos_ge_zonas_id_zona_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos
+    ADD CONSTRAINT ge_paraderos_ge_zonas_id_zona_fkey FOREIGN KEY (ge_zonas_id_zona) REFERENCES ge_zonas("id_Zona");
+
+
+--
+-- TOC entry 2018 (class 2606 OID 16821)
+-- Name: ge_paraderos_recorridos_ge_paraderos_id_paradero_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos_recorridos
+    ADD CONSTRAINT ge_paraderos_recorridos_ge_paraderos_id_paradero_fkey FOREIGN KEY (ge_paraderos_id_paradero) REFERENCES ge_paraderos(id_paradero);
+
+
+--
+-- TOC entry 2017 (class 2606 OID 16816)
+-- Name: ge_paraderos_recorridos_ge_recorridos_id_recorrido_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_paraderos_recorridos
+    ADD CONSTRAINT ge_paraderos_recorridos_ge_recorridos_id_recorrido_fkey FOREIGN KEY (ge_recorridos_id_recorrido) REFERENCES ge_recorridos(id_ge_recorrido);
+
+
+--
+-- TOC entry 2019 (class 2606 OID 16875)
+-- Name: ge_recorridos_horarios_ge_buses_id_bus_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios
+    ADD CONSTRAINT ge_recorridos_horarios_ge_buses_id_bus_fkey FOREIGN KEY (ge_buses_id_bus) REFERENCES ge_buses(id_bus);
+
+
+--
+-- TOC entry 2020 (class 2606 OID 16880)
+-- Name: ge_recorridos_horarios_ge_horarios_id_horario_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios
+    ADD CONSTRAINT ge_recorridos_horarios_ge_horarios_id_horario_fkey FOREIGN KEY (ge_horarios_id_horario) REFERENCES ge_horarios("id_Horario");
+
+
+--
+-- TOC entry 2021 (class 2606 OID 16885)
+-- Name: ge_recorridos_horarios_ge_recorridos_id_recorrido_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY ge_recorridos_horarios
+    ADD CONSTRAINT ge_recorridos_horarios_ge_recorridos_id_recorrido_fkey FOREIGN KEY (ge_recorridos_id_recorrido) REFERENCES ge_recorridos(id_ge_recorrido);
+
+
+--
+-- TOC entry 2054 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- TOC entry 2071 (class 0 OID 0)
+-- Dependencies: 168
+-- Name: ge_recorridos; Type: ACL; Schema: public; Owner: postgres
+--
+
+REVOKE ALL ON TABLE ge_recorridos FROM PUBLIC;
+REVOKE ALL ON TABLE ge_recorridos FROM postgres;
+
+
+-- Completed on 2013-09-02 06:02:31
+
+--
+-- PostgreSQL database dump complete
+--
+
